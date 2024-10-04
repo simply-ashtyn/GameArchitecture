@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Engine/DamageEvents.h"
 #include "Projectile.generated.h"
 
 UCLASS()
@@ -19,9 +20,21 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	class USphereComponent* SphereCollision;
+		class USphereComponent* BulletSphere;
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	class UStaticMeshComponent* SphereMesh;
+		class UStaticMeshComponent* BulletMesh; //bulletMesh
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+		class UProjectileMovementComponent* projectileMovement;
+
+	FVector bulletSize;
+	FTimerHandle timerHandle;
+	float timeBeforeDestroy;
+	float damage;
+	FDamageEvent damageEvent;
+
+	//UFUNCTION()
+	//void DoDamage(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
