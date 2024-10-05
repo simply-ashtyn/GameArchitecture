@@ -14,6 +14,14 @@ class END2408_API ABaseCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ABaseCharacter();
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
+		class UChildActorComponent* GunSocket;
+	
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<class ARifle> gunClass;
+	
+	UPROPERTY()
+		AActor* childActor;
 
 protected:
 	// Called when the game starts or when spawned
