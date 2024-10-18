@@ -15,4 +15,16 @@ class END2408_API UPlayerHUD : public UUserWidget {
 protected:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	class UProgressBar* HealthBar;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	class UTextBlock* CurrentAmmoText;	
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	class UTextBlock* MaxAmmoText;
+
+public:
+	UFUNCTION(BlueprintNativeEvent,BlueprintCallable)
+	void CodeSetAmmo(float CurrentAmmo,float MaxAmmo);
+	virtual void CodeSetAmmo_Implementation(float CurrentAmmo,float MaxAmmo);	
+	UFUNCTION(BlueprintNativeEvent,BlueprintCallable)
+	void CodeSetHealth(float Percent);
+	virtual void CodeSetHealth_Implementation(float Percent);
 };

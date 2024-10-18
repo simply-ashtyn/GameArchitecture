@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Examples/BoundInCodeBlueprintFunction.h"
 #include "ExampleActorWithInterfaces.generated.h"
 
 UCLASS()
-class END2408_API AExampleActorWithInterfaces : public AActor
+class END2408_API AExampleActorWithInterfaces : public AActor, public IBoundInCodeBlueprintFunction
+
 {
 	GENERATED_BODY()
 	
@@ -18,6 +20,16 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	//-------------------------------//
+	// IBoundInCodeBlueprintFunction
+	//-------------------------------//
+	 
+	virtual void BlueprintNativeEvent_Implementation() override;
+	 
+	//-------------------------------//
+	// IBoundInCodeBlueprintFunction
+	//-------------------------------//
 
 public:	
 	// Called every frame

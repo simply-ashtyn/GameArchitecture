@@ -7,7 +7,7 @@
 #include "ExampleInterface.generated.h"
 
 // This class does not need to be modified.
-UINTERFACE(MinimalAPI)
+UINTERFACE(MinimalAPI, NotBlueprintable)
 class UExampleInterface : public UInterface
 {
 	GENERATED_BODY()

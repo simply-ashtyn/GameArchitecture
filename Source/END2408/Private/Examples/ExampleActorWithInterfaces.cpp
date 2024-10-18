@@ -2,6 +2,7 @@
 
 
 #include "Examples/ExampleActorWithInterfaces.h"
+#include "../END2408.h"
 
 // Sets default values
 AExampleActorWithInterfaces::AExampleActorWithInterfaces()
@@ -16,6 +17,12 @@ void AExampleActorWithInterfaces::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void AExampleActorWithInterfaces::BlueprintNativeEvent_Implementation()
+{
+	IBoundInCodeBlueprintFunction::BlueprintNativeEvent_Implementation();
+	UE_LOG(Game, Log, TEXT("In C++ class BlueprintNativeEvent_Implementation override"));
 }
 
 // Called every frame

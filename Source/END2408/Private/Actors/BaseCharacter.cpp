@@ -2,7 +2,6 @@
 
 
 #include "Actors/BaseCharacter.h"
-#include "Actors/Rifle.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/ChildActorComponent.h"
 #include "Components/ActorComponent.h"
@@ -18,14 +17,47 @@ ABaseCharacter::ABaseCharacter() {
 	GetMesh()->SetGenerateOverlapEvents(true);
 
 	GunSocket = CreateDefaultSubobject<UChildActorComponent>(TEXT("GunSocket"));
-	GunSocket->SetupAttachment(GetMesh(), "WeaponSocket");
+	GunSocket->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale,"PlaceWeaponHere");
+
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
+	isDead = false;
+}
+
+void ABaseCharacter::HandleHurt()
+{
+	Animator->PlayHurt(0);
+}
+
+void ABaseCharacter::HandleDeath()
+{
+	Animator->PlayDeath();
+	isDead = true;
+	Gun->OwnerDead();
+	//UPawnMovementComponent* move = GetMovementComponent();
+	//MovementComponent = CastChecked<UMovementComponent>(move);
+	//MovementComponent->StopMovementImmediately();
+
+	//STOP PROJECTILES FROM COLLIDING WITH DEAD CHARACTER
+	//CapsuleComponent = GetCapsuleComponent();
+	//CapsuleComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}
+
+void ABaseCharacter::BindWeaponAndAnimations_Implementation()
+{
+	HealthComponent->OnHurt.AddDynamic(Animator, &UCharacterAnimation::PlayHurt);
+	Gun->OnAttack.AddDynamic(Animator, &UCharacterAnimation::PlayShoot);
+	Animator->OnShootEnded.AddDynamic(Gun, &ARifle::ActionEnded);
 }
 
 // Called when the game starts or when spawned
 void ABaseCharacter::BeginPlay() {
 	Super::BeginPlay();
-	GunSocket->SetChildActorClass(gunClass);
 	childActor = GunSocket->GetChildActor();
+	Gun = Cast<ARifle>(childActor);
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	Animator = CastChecked<UCharacterAnimation>(AnimInstance);
+	HealthComponent->OnDeath.AddDynamic(this, &ABaseCharacter::HandleDeath);
+	BindWeaponAndAnimations();
 }
 
 // Called every frame
@@ -38,3 +70,24 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+void ABaseCharacter::Shoot_Implementation()
+{
+	if (!isDead)
+	{
+		Gun->Shoot();
+		Animator->PlayShoot();
+	}
+}
+
+void ABaseCharacter::Reload_Implementation()
+{
+	if (Gun->RequestReload())
+	{
+		Animator->PlayReload();
+	}
+}
+
+bool ABaseCharacter::CanPickupHealth()
+{
+	return false;
+}
