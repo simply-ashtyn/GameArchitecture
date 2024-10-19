@@ -34,8 +34,8 @@ public:
 	bool isDead;
 	UFUNCTION()
 	void HandleHurt();
-	UFUNCTION()
-	void HandleDeath();
+	UFUNCTION(BlueprintCallable)
+	virtual void HandleDeath(float Ratio);
 
 	///ANIMATIONS
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)

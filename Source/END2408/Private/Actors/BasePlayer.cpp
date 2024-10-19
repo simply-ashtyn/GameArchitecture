@@ -61,14 +61,15 @@ void ABasePlayer::Strafe(float value)
 	//AddMovementInput(FRotator(0.f, GetControlRotation().Yaw, 0.f).Vector().RightVector, value);
 }
 
+void ABasePlayer::BindWeaponAndAnimations_Implementation()
+{
+	Super::BindWeaponAndAnimations_Implementation();
+	//Gun->OnAmmoChanged.AddDynamic(PlayerHUD_Widget, &UPlayerHUD::CodeSetAmmo);
+}
+
 void ABasePlayer::InputReload()
 {
 	Reload();
-}
-
-void ABasePlayer::HandleDeath(float Percent)
-{
-	DisableInput(PlayerController);
 }
 
 void ABasePlayer::BeginPlay()
@@ -84,6 +85,18 @@ void ABasePlayer::BeginPlay()
 	}
 	
 	Gun->ReloadAmmo();
-	//Gun->OnAmmoChanged.AddDynamic(PlayerHUDref, &UPlayerHUD::CodeSetAmmo);
-	//HealthComponent->OnHeal.AddDynamic(PlayerHUDref, &UPlayerHUD::CodeSetHealth);
+	//HealthComponent->OnHurt.AddDynamic(PlayerHUD_Widget, &UPlayerHUD::CodeSetHealth);
+	//HealthComponent->OnDeath.AddDynamic(PlayerHUD_Widget, &UPlayerHUD::CodeSetHealth);
+	//HealthComponent->OnHeal.AddDynamic(PlayerHUD_Widget, &UPlayerHUD::CodeSetHealth_Implementation);
+}
+
+void ABasePlayer::HandleDeath(float Ratio)
+{
+	Super::HandleDeath(Ratio);
+	DisableInput(PlayerController);
+}
+
+void ABasePlayer::RemoveUI_Implementation()
+{
+	PlayerHUD_Widget->RemoveFromParent();
 }

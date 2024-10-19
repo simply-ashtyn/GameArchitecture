@@ -7,7 +7,7 @@
 #include "HealthComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHurt, float, Percent);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDeath, float, Ratio);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHeal, float, Percent);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )

@@ -43,19 +43,19 @@ void UHealthComponent::HandleTakeDamage(AActor* DamagedActor, float Damage, cons
 	UE_LOG(LogTemp, Warning, TEXT("took %f damage"), Damage);
 	
 	currentHealth = FMath::Clamp(currentHealth - Damage, 0.f, maxHealth);
-	float percent = currentHealth / maxHealth;
+	float Percent = currentHealth / maxHealth;
 
 	UE_LOG(LogTemp, Warning, TEXT("remaining health: %f"), currentHealth);
 
 	if (Damage < 0)
 	{
-		OnHeal.Broadcast(percent);
+		OnHeal.Broadcast(Percent);
 		UE_LOG(LogTemp, Warning, TEXT("onHeal health: %f"), currentHealth);
 	}
 	else if (currentHealth > 0)
 	{
 		Animator->PlayHurt(0);
-		OnHurt.Broadcast(percent);
+		OnHurt.Broadcast(Percent);
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("remaining health: %f"), currentHealth);
@@ -63,7 +63,7 @@ void UHealthComponent::HandleTakeDamage(AActor* DamagedActor, float Damage, cons
 	if (currentHealth <= 0)
 	{
 		//actor died
-		OnDeath.Broadcast();
+		OnDeath.Broadcast(0);
 		GetOwner()->OnTakeAnyDamage.Clear();
 	}
 }

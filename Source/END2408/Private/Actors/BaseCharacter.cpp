@@ -28,11 +28,12 @@ void ABaseCharacter::HandleHurt()
 	Animator->PlayHurt(0);
 }
 
-void ABaseCharacter::HandleDeath()
+void ABaseCharacter::HandleDeath(float Ratio)
 {
 	Animator->PlayDeath();
 	isDead = true;
 	Gun->OwnerDead();
+
 	//UPawnMovementComponent* move = GetMovementComponent();
 	//MovementComponent = CastChecked<UMovementComponent>(move);
 	//MovementComponent->StopMovementImmediately();

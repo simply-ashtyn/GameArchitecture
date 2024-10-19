@@ -28,10 +28,16 @@ protected:
 	class UUserWidget* PlayerHUD_Widget;
 
 	void BeginPlay() override;
+	void HandleDeath(float Ratio) override;
+	void BindWeaponAndAnimations();
+	void BindWeaponAndAnimations_Implementation() override;
 
 public:
 	ABasePlayer();
 	void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void RemoveUI();
+	void RemoveUI_Implementation();
 
 	//------------------------------------//
 	// IInterface_CodePickup
@@ -49,5 +55,4 @@ private:
 	void InputAxisMoveForward(float AxisValue);
 	void Strafe(float value);
 	void InputReload();
-	void HandleDeath(float Percent);
 };

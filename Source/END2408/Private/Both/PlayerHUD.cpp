@@ -17,5 +17,5 @@ void UPlayerHUD::CodeSetAmmo_Implementation(float CurrentAmmo, float MaxAmmo)
 
 void UPlayerHUD::CodeSetHealth_Implementation(float Percent)
 {
-
+	HealthBar->SetPercent(Percent);
 }

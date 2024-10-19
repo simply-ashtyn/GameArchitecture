@@ -50,7 +50,7 @@ void ABaseAgent::UpdateBlackboardAmmo_Implementation(float current, float max)
 
 //void ABaseAgent::OnPlayerDeath()
 //{
-//
+// 	Animator->OnDeathEnded.AddDynamic(this, &ABasePlayer::Destroy);
 //}
 
 void ABaseAgent::EnemyAttack()
