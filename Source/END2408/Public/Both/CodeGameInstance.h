@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include <array>
 #include "CodeGameInstance.generated.h"
 
 /**
@@ -15,12 +16,16 @@ class END2408_API UCodeGameInstance : public UGameInstance
 	GENERATED_BODY()
 	
 public:
+	UCodeGameInstance();
+
 	UFUNCTION(BlueprintCallable)
 	void LoadFirstLevel();
 	UFUNCTION(BlueprintCallable)
 	void QuitGame();
-	virtual void Shutdown() override;
+
+	int FirstLevelIndex;
+	TArray<FName> GameLevels;
 
 private:
-	void LoadLevelSafe();
+	void LoadLevelSafe(int LevelIndex);
 };

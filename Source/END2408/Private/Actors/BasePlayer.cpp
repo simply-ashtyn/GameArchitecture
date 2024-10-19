@@ -5,6 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Both/PlayerHUD.h"
+#include "Blueprint/UserWidget.h"
 
 ABasePlayer::ABasePlayer() {
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
@@ -73,11 +74,15 @@ void ABasePlayer::HandleDeath(float Percent)
 void ABasePlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	if (PlayerHUDref == nullptr)
+	if (IsValid(PlayerHUD))
 	{
-		PlayerHUDref = CreateWidget<UUserWidget>(PlayerController, PlayerHUD);
+		PlayerHUD_Widget = CreateWidget<UPlayerHUD>(GetWorld(), PlayerHUD);
+		if (PlayerHUD_Widget != nullptr)
+		{
+			PlayerHUD_Widget->AddToViewport();
+		}
 	}
-	//PlayerHUDref->AddToViewport();
+	
 	Gun->ReloadAmmo();
 	//Gun->OnAmmoChanged.AddDynamic(PlayerHUDref, &UPlayerHUD::CodeSetAmmo);
 	//HealthComponent->OnHeal.AddDynamic(PlayerHUDref, &UPlayerHUD::CodeSetHealth);

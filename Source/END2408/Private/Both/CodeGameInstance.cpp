@@ -2,23 +2,37 @@
 
 
 #include "Both/CodeGameInstance.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
+#include "../END2408.h"
+
+UCodeGameInstance::UCodeGameInstance()
+{
+	FirstLevelIndex = 1;
+	GameLevels = TArray<FName> { "CodeMainMenu","CodeTestingMap" };
+}
 
 void UCodeGameInstance::LoadFirstLevel()
 {
-
+	UGameplayStatics::OpenLevel(GetWorld(), GameLevels[FirstLevelIndex]);
+	// set input mode UI only
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	PlayerController->SetInputMode(FInputModeGameOnly());
 }
 
 void UCodeGameInstance::QuitGame()
 {
-	Shutdown();
+	UKismetSystemLibrary::QuitGame(GetWorld(), nullptr, EQuitPreference::Quit, false);
 }
 
-void UCodeGameInstance::Shutdown()
+void UCodeGameInstance::LoadLevelSafe(int LevelIndex)
 {
-	Super::Shutdown();
-}
-
-void UCodeGameInstance::LoadLevelSafe()
-{
-
+	if (GameLevels.IsValidIndex(LevelIndex))
+	{
+		LoadFirstLevel();
+	}
+	else
+	{
+		UE_LOG(Game, Warning, TEXT("Could not load level index %n invalid index"), LevelIndex);
+	}
 }

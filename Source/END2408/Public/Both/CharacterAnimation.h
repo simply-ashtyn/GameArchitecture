@@ -43,7 +43,7 @@ protected:
 	bool debugShoot;
 	UPROPERTY(BluePrintReadWrite, VisibleAnywhere)
 	bool debugHurt;	
-	UPROPERTY(BluePrintReadWrite, VisibleAnywhere)
+	UPROPERTY(BluePrintReadWrite, EditInstanceOnly)
 	bool debugDeath;
 	UPROPERTY(BluePrintReadWrite, VisibleAnywhere)
 	bool debugReload;

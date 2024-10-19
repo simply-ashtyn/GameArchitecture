@@ -23,9 +23,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	class UCameraComponent* PlayerCamera;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<class UUserWidget> PlayerHUD;
+	TSubclassOf<class UPlayerHUD> PlayerHUD;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	class UUserWidget* PlayerHUDref;
+	class UUserWidget* PlayerHUD_Widget;
 
 	void BeginPlay() override;
 
