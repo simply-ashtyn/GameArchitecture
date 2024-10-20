@@ -49,6 +49,7 @@ void ACodeGameMode::AddEnemy(AActor* Agent)
 {
 	Agent->OnDestroyed.AddDynamic(this, &ACodeGameMode::RemoveEnemy);
 	NumberOfEnemies++;
+	UE_LOG(Game, Warning, TEXT("Number of enemies, %d", NumberOfEnemies));
 }
 
 void ACodeGameMode::RemovePlayer()

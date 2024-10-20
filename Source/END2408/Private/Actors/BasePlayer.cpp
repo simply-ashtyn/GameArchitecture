@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "Both/PlayerHUD.h"
 #include "Blueprint/UserWidget.h"
+#include "../END2408.h"
 
 ABasePlayer::ABasePlayer() {
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
@@ -68,6 +69,7 @@ void ABasePlayer::InputReload()
 
 void ABasePlayer::PlayerLost()
 {
+	UE_LOG(Game, Warning, TEXT("YOU LOSE"));
 	RemoveUI();
 	PlayerController->SetShowMouseCursor(true);
 	OnPlayerLost.Broadcast();
@@ -75,6 +77,7 @@ void ABasePlayer::PlayerLost()
 
 void ABasePlayer::PlayerWin()
 {
+	UE_LOG(Game, Warning, TEXT("YOU WIN"));
 	DisableInput(PlayerController);
 	RemoveUI();
 }
