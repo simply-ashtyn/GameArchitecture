@@ -19,8 +19,8 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, Category = "WidgetClass")
-		TSubclassOf<UCodeMainMenuWidget> MenuClass;
-	UPROPERTY(BlueprintReadWrite, Category = "WidgetClass")
-		class UUserWidget* MenuClass_Widget;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WidgetClass")
+		TSubclassOf<class UCodeMainMenuWidget> MenuClass;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "WidgetClass")
+		class UCodeMainMenuWidget* MenuClass_Widget;
 };

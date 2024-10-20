@@ -11,6 +11,9 @@
 /**
  *
  */
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerLost);
+
 UCLASS()
 class END2408_API ABasePlayer : public ABaseCharacter 
 {
@@ -25,12 +28,10 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class UPlayerHUD> PlayerHUD;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	class UUserWidget* PlayerHUD_Widget;
+	class UPlayerHUD* PlayerHUD_Widget;
 
 	void BeginPlay() override;
 	void HandleDeath(float Ratio) override;
-	void BindWeaponAndAnimations();
-	void BindWeaponAndAnimations_Implementation() override;
 
 public:
 	ABasePlayer();
@@ -38,6 +39,8 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void RemoveUI();
 	void RemoveUI_Implementation();
+	FOnPlayerLost OnPlayerLost;
+	void PlayerWin();
 
 	//------------------------------------//
 	// IInterface_CodePickup
@@ -55,4 +58,6 @@ private:
 	void InputAxisMoveForward(float AxisValue);
 	void Strafe(float value);
 	void InputReload();
+
+	void PlayerLost();
 };

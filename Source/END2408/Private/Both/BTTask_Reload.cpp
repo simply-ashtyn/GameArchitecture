@@ -12,12 +12,9 @@ UBTTask_Reload::UBTTask_Reload()
 
 EBTNodeResult::Type UBTTask_Reload::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	for (TActorIterator<AActor> itr(GetWorld()); itr; ++itr)
+	if (ICodeEnemyInterface* EnemyInterface = Cast<ICodeEnemyInterface>(OwnerComp.GetOwner()))
 	{
-		if ((*itr)->Implements<UCodeEnemyInterface>())
-		{
-			//ICodeEnemyInterface::execEnemyAttack(*itr);
-		}
+		EnemyInterface->EnemyReload();
 	}
 	WaitForMessage(OwnerComp, FinishedName);
 	return EBTNodeResult::Succeeded;

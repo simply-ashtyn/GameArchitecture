@@ -19,11 +19,11 @@ void UCodeMainMenuWidget::NativePreConstruct()
 	}
 }
 
-void UCodeMainMenuWidget::NativeContruct()
+void UCodeMainMenuWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
 	//PlayButton->UsableButton->OnClicked.AddDynamic(CodeGameInstance, &UCodeGameInstance::LoadFirstLevel);
-	PlayButton->OnButtonClicked.AddDynamic(CodeGameInstance, &UCodeGameInstance::LoadFirstLevel);
+	PlayGameButton->OnButtonClicked.AddDynamic(CodeGameInstance, &UCodeGameInstance::LoadFirstLevel);
 	QuitButton->OnButtonClicked.AddDynamic(CodeGameInstance, &UCodeGameInstance::QuitGame);
 }

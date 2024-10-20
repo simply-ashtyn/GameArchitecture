@@ -32,8 +32,7 @@ void ACodeMenuPlayerController::BeginPlay()
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 
 	// set input mode UI only
-	PlayerController->SetInputMode(FInputModeUIOnly());
-	//FInputodeGameAndUI::SetWidgetToFocus()
+	PlayerController->SetInputMode(FInputModeUIOnly().SetWidgetToFocus(MenuClass_Widget->TakeWidget()));
 }
 
 void ACodeMenuPlayerController::Tick(float DeltaTime)

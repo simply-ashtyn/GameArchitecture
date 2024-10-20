@@ -61,15 +61,22 @@ void ABasePlayer::Strafe(float value)
 	//AddMovementInput(FRotator(0.f, GetControlRotation().Yaw, 0.f).Vector().RightVector, value);
 }
 
-void ABasePlayer::BindWeaponAndAnimations_Implementation()
-{
-	Super::BindWeaponAndAnimations_Implementation();
-	//Gun->OnAmmoChanged.AddDynamic(PlayerHUD_Widget, &UPlayerHUD::CodeSetAmmo);
-}
-
 void ABasePlayer::InputReload()
 {
 	Reload();
+}
+
+void ABasePlayer::PlayerLost()
+{
+	RemoveUI();
+	PlayerController->SetShowMouseCursor(true);
+	OnPlayerLost.Broadcast();
+}
+
+void ABasePlayer::PlayerWin()
+{
+	DisableInput(PlayerController);
+	RemoveUI();
 }
 
 void ABasePlayer::BeginPlay()
@@ -84,10 +91,11 @@ void ABasePlayer::BeginPlay()
 		}
 	}
 	
+	Gun->OnAmmoChanged.AddDynamic(PlayerHUD_Widget, &UPlayerHUD::CodeSetAmmo);
 	Gun->ReloadAmmo();
-	//HealthComponent->OnHurt.AddDynamic(PlayerHUD_Widget, &UPlayerHUD::CodeSetHealth);
-	//HealthComponent->OnDeath.AddDynamic(PlayerHUD_Widget, &UPlayerHUD::CodeSetHealth);
-	//HealthComponent->OnHeal.AddDynamic(PlayerHUD_Widget, &UPlayerHUD::CodeSetHealth_Implementation);
+	HealthComponent->OnHurt.AddDynamic(PlayerHUD_Widget, &UPlayerHUD::CodeSetHealth);
+	HealthComponent->OnDeath.AddDynamic(PlayerHUD_Widget, &UPlayerHUD::CodeSetHealth);
+	HealthComponent->OnHeal.AddDynamic(PlayerHUD_Widget, &UPlayerHUD::CodeSetHealth);
 }
 
 void ABasePlayer::HandleDeath(float Ratio)

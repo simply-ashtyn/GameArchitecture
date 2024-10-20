@@ -16,8 +16,23 @@ class END2408_API ACodeGameMode : public AGameModeBase
 	
 public:
 	ACodeGameMode();
+	void AddEnemy(AActor* Agent);
+
+	class ABasePlayer* Player;
+	class APlayerController* PlayerController;
+
+	UPROPERTY(EditAnywhere, Category = "WidgetClass")
+		TSubclassOf<class UResultsWidget> ResultsWidgetClass;
+	UPROPERTY(BlueprintReadWrite, Category = "WidgetClass")
+		class UResultsWidget* ResultsWidgetClass_Widget;
 
 protected:
 	virtual void BeginPlay() override;
 
+private:
+	void RemovePlayer();
+	void RemoveEnemy(AActor* Actor);
+
+	int NumberOfEnemies;
+	void AddWidgetToViewPort();
 };

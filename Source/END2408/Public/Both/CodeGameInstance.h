@@ -21,9 +21,14 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void LoadFirstLevel();
 	UFUNCTION(BlueprintCallable)
-	void QuitGame();
+	void QuitGame();	
+	UFUNCTION(BlueprintCallable)
+	void LoadCurrentLevel();
+	UFUNCTION(BlueprintCallable)
+	void LoadMainMenu();
 
 	int FirstLevelIndex;
+	int CurrentLevelIndex;
 	TArray<FName> GameLevels;
 
 private:

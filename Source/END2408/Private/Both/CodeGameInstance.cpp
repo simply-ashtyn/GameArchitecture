@@ -25,6 +25,16 @@ void UCodeGameInstance::QuitGame()
 	UKismetSystemLibrary::QuitGame(GetWorld(), nullptr, EQuitPreference::Quit, false);
 }
 
+void UCodeGameInstance::LoadCurrentLevel()
+{
+	LoadLevelSafe(CurrentLevelIndex);
+}
+
+void UCodeGameInstance::LoadMainMenu()
+{
+	LoadLevelSafe(0);
+}
+
 void UCodeGameInstance::LoadLevelSafe(int LevelIndex)
 {
 	if (GameLevels.IsValidIndex(LevelIndex))

@@ -42,7 +42,6 @@ protected:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void ActionEnded();
 	virtual void ActionEnded_Implementation();
-	//bool CanPickup(AActor* OtherActor) override; ///IS DONE WITH INTERFACE
 	
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void UpdateBlackboardAmmo(float current, float max);
@@ -51,6 +50,7 @@ protected:
 private:
 	void AIReload();
 	void AIReload_Implementation();
+	void HandleDeath(float Ratio) override;
 	//void Shoot();
 	//void Shoot_Implementation() override;
 };

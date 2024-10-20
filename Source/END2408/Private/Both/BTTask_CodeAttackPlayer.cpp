@@ -3,6 +3,8 @@
 
 #include "Both/BTTask_CodeAttackPlayer.h"
 #include "Actors/AgentController.h"
+#include "Both/CodeEnemyInterface.h"
+#include "EngineUtils.h"
 
 UBTTask_CodeAttackPlayer::UBTTask_CodeAttackPlayer()
 {
@@ -15,13 +17,10 @@ UBTTask_CodeAttackPlayer::UBTTask_CodeAttackPlayer()
 
 EBTNodeResult::Type UBTTask_CodeAttackPlayer::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemor)
 {
-	if (auto owningController = Cast<AAgentController>(OwnerComp.GetAIOwner()))
+	if (ICodeEnemyInterface* EnemyInterface = Cast<ICodeEnemyInterface>(OwnerComp.GetOwner()))
 	{
-		//owningController->EnemyAttack(); //need to call interface attack player
-		return EBTNodeResult::Succeeded;
+		EnemyInterface->EnemyAttack();
 	}
-	else
-	{
-		return EBTNodeResult::Failed;
-	}
+	WaitForMessage(OwnerComp, FinishedName);
+	return EBTNodeResult::Succeeded;
 }

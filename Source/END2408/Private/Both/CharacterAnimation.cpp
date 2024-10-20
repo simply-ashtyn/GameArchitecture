@@ -9,7 +9,7 @@ UCharacterAnimation::UCharacterAnimation()
 	ShootNodeName = "Action";
 	HurtNodeName = "Action"; //Hurt node name doesn't work, but action does
 	ReloadNodeName = "Action";
-	DeathNodeName = "Death";
+	DeathNodeName = "Action";
 	Velocity = 0;
 	//Direction = 0;
 	ActionHappening = false;
@@ -97,7 +97,7 @@ void UCharacterAnimation::PlayDeath_Implementation()
 	DeathAssetIndex = indexInArray;
 	CurrDeathAsset = DeathAssets[indexInArray];
 	GetWorld()->GetTimerManager().SetTimer(TimeHandle, this, &UCharacterAnimation::DeathEnded, CurrDeathAsset->GetPlayLength());
-	//PlayDeath();
+	PlaySlotAnimationAsDynamicMontage(CurrDeathAsset, DeathNodeName);
 }
 
 void UCharacterAnimation::PlayReload_Implementation()

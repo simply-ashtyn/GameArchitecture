@@ -16,11 +16,11 @@ class END2408_API UCodeMainMenuWidget : public UUserWidget
 	
 public:
 	void NativePreConstruct();
-	void NativeContruct();
+	virtual void NativeConstruct() override;
 
 protected:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
-	class UTextButtonWidget* PlayButton;	
+	class UTextButtonWidget* PlayGameButton;	
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	class UTextButtonWidget* QuitButton;
 

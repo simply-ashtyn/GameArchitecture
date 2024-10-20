@@ -39,6 +39,12 @@ void ABaseAgent::AIReload_Implementation()
 	Gun->RequestReload();
 }
 
+void ABaseAgent::HandleDeath(float Ratio)
+{
+	//disable perception
+	//Animator->OnDeathEnded.AddDynamic(this, &ABasePlayer::K2_Destroy);
+}
+
 //void ABaseAgent::Shoot_Implementation()
 //{
 //}
@@ -47,11 +53,6 @@ void ABaseAgent::UpdateBlackboardAmmo_Implementation(float current, float max)
 {
 	Blackboard->SetValueAsFloat(AmmoName, current);
 }
-
-//void ABaseAgent::OnPlayerDeath()
-//{
-// 	Animator->OnDeathEnded.AddDynamic(this, &ABasePlayer::Destroy);
-//}
 
 void ABaseAgent::EnemyAttack()
 {

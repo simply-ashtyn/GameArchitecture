@@ -24,5 +24,8 @@ class END2408_API ICodeEnemyInterface
 public:
 	UFUNCTION(BlueprintCallable)
 	virtual void EnemyAttack() = 0;
+	//virtual void EnemyAttack_Implement() = 0;
+	UFUNCTION(BlueprintCallable)
 	virtual void EnemyReload() = 0;
+	//virtual void EnemyReload_Implement() = 0;
 };
