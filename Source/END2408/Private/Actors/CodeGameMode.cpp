@@ -49,13 +49,13 @@ void ACodeGameMode::AddEnemy(AActor* Agent)
 {
 	Agent->OnDestroyed.AddDynamic(this, &ACodeGameMode::RemoveEnemy);
 	NumberOfEnemies++;
-	UE_LOG(Game, Warning, TEXT("Number of enemies, %d", NumberOfEnemies));
+	UE_LOG(Game, Warning, TEXT("Number of enemies: %n"), NumberOfEnemies);
 }
 
 void ACodeGameMode::RemovePlayer()
 {
 	AddWidgetToViewPort();
-	PlayerController->SetInputMode(FInputModeUIOnly().SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways)); //EMouseLockMode::LockAlways
+	PlayerController->SetInputMode(FInputModeUIOnly().SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways));
 }
 
 void ACodeGameMode::RemoveEnemy(AActor* Agent)
@@ -74,5 +74,6 @@ void ACodeGameMode::AddWidgetToViewPort()
 	if (ResultsWidgetClass_Widget != nullptr)
 	{
 		ResultsWidgetClass_Widget->AddToViewport();
+		PlayerController->SetInputMode(FInputModeUIOnly().SetWidgetToFocus(ResultsWidgetClass_Widget->TakeWidget()));
 	}
 }
